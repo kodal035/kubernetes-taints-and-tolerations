@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    environment: dev
+spec:
+  replicas: 15
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+      tolerations:
+      - key: "clarus"
+        operator: "Exists"
+        effect: "NoSchedule"
+
+      # tolerations:
+      # - key: "clarus"
+      #   operator: "Exist"
+      #   effect: "NoExecute"
+
+
+# taints tolerations types
+# 1- NoSchedule
+# 2- NoExecute
